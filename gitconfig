@@ -1,0 +1,22 @@
+[user]
+email = peter@petergottesman.com
+name = Peter Gottesman
+
+[core]
+autocrlf = input
+
+[alias]
+pr = pull --rebase
+di = diff
+ci = commit
+st = status
+co = checkout
+logs = log --stat --no-merges
+graph = log --graph --decorate --abbrev-commit --pretty=oneline
+grapha = log --graph --decorate --abbrev-commit --pretty=oneline --all
+
+[credential]
+helper = cache
+
+[push]
+default = simple
