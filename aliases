@@ -1,0 +1,8 @@
+alias ls="ls -hl --color"
+alias emacs="emacsclient -t"
+alias vim="nvim"
+alias vi="emacsclient -t"
+alias wifi_list="nmcli device wifi list"
+alias wifi_connect="nmcli device wifi connect --ask"
+alias wifi_disconnect="nmcli device disconnet wlp3s0"
+alias em="emacsclient -t"
