@@ -1,0 +1,26 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+autoload -Uz promptinit
+promptinit
+prompt paggie
+
+export EDITOR="emacsclient -nw --alternate-editor=''"
+
+if [[ -f "${HOME}/.aliases" ]]; then
+   source "${HOME}/.aliases"
+fi
+
+if [[ -f "${HOME}/.zshrc.local" ]]; then
+    source "${HOME}/.zshrc.local"
+fi
