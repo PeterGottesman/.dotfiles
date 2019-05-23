@@ -1,9 +1,11 @@
 [user]
-email = peter@petergottesman.com
+# Email not defined on purpose, set depending on the machine...
 name = Peter Gottesman
 
 [core]
 autocrlf = input
+# If emacs server is not started, just use vim
+editor = emacsclient -t --alternate-editor="vim"
 
 [alias]
 pr = pull --rebase
