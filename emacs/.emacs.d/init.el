@@ -39,10 +39,6 @@
 (define-globalized-minor-mode my-hl-todo-mode-global hl-todo-mode
   (lambda () (hl-todo-mode t)))
 
-;; (use-package paganini-theme
-;;   :init
-;;   (load-theme 'paganini t))
-
 (use-package multi-term
   :bind ("<f12>" . 'multi-term-dedicated-toggle)
   :config (setq multi-term-program "/bin/zsh"
@@ -103,6 +99,9 @@
   :bind (("C-c y" . system-clipboard-mode))
   )
 
+(use-package markdown-mode)
+(use-package paganini-theme)
+
 (global-set-key (kbd "<f2>") 'whitespace-mode)
 (global-set-key (kbd "S-<f2>") 'whitespace-cleanup)
 
@@ -110,7 +109,7 @@
 (global-linum-mode t)
 (menu-bar-mode -1)
 (my-hl-todo-mode-global t)
-(load-theme 'misterioso t)
+(load-theme 'wombat t)
 
 ;; Turn off file variables
 ;; ;; See: https://www.emacswiki.org/emacs/FileLocalVariables#toc2
