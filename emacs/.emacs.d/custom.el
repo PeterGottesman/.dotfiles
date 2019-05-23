@@ -17,7 +17,6 @@
  '(company-show-numbers t)
  '(company-statistics-mode t)
  '(company-transformers (quote (company-sort-by-statistics)))
- '(custom-enabled-themes (quote (misterioso)))
  '(custom-safe-themes
    (quote
     ("1e67765ecb4e53df20a96fb708a8601f6d7c8f02edb09d16c838e465ebe7f51b" default)))
