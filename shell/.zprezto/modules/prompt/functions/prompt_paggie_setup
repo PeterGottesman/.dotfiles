@@ -32,7 +32,7 @@ function +vi-git_precmd {
 function prompt_paggie_precmd {
   # Replace '/home/<user>' with '~'.
   _prompt_paggie_pwd="${PWD/#$HOME/~}"
-  vcs_info
+  #vcs_info
 }
 
 function prompt_paggie_setup {
@@ -51,22 +51,24 @@ function prompt_paggie_setup {
   zstyle ':prezto:module:editor:info:completing' format '%F{green}...%f'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%F{yellow}--- COMMAND ---%f'
 
+  _prompt_paggie_symbol=')'
+
   # Set vcs_info parameters.
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
-  zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
-  zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
-  zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
+  # zstyle ':vcs_info:*' check-for-changes true
+  # zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
+  # zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
+  # zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+  # zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
 
   # Set vcs_info hooks.
   # NOTE: Prior to Zsh v4.3.12, there are no static hooks, no vcs_info_hookadd
   #       function, and no 'no-vcs' hook.
-  zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
-  zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
-  zstyle ':vcs_infoz:*+set-message:*' hooks set_vcs_prompt_symbol
+  # zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
+  # zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
+  # zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
 
   # Define prompts.
-  PROMPT='%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_paggie_pwd}%f${vcs_info_msg_0_}
+  PROMPT='%F{magenta}%n%f@%F{yellow}%m%f|%F{green}${_prompt_paggie_pwd}%f
 %F{blue}${_prompt_paggie_symbol}%f '
   RPROMPT='%(?..%F{red}$?%f)'
   SPROMPT='zsh: correct %F{magenta}%R%f to %F{green}%r%f [nyae]? '
