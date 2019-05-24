@@ -1,3 +1,3 @@
-if [[ -f "~/.preloads.local" ]]; then
-    source "~/.preloads.local"
+if [[ -f "$HOME/.preloads.local" ]]; then
+    source "$HOME/.preloads.local"
 fi
