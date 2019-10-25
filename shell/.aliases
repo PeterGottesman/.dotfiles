@@ -9,3 +9,11 @@ alias em="emacsclient -t --alternate-editor=''"
 
 alias sq="squeue -o \"%.7i %.15P %.8u %.8T %.9M %.6D %.15R    %j\""
 alias sqc='echo "$(squeue | wc -l)-1" | bc'
+
+function pyman {
+    if [ "$#" -eq "1" ]; then
+	python3 -c "import $1; help($1)"
+    elif [ "$#" -eq "2" ]; then
+	python3 -c "import $1; help($1.$2)"
+    fi
+}
