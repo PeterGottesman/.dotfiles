@@ -41,10 +41,18 @@ typeset -gU cdpath fpath mailpath path
 #   $cdpath
 # )
 
+# export xdg config
+export GOPATH=$HOME/go
+XDG_CONFIG_HOME=$HOME/.config
+
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /usr/local/{bin,sbin}
-  $path
+    $HOME/.local/bin
+    $HOME/.bin
+    /usr/local/{bin,sbin}
+    $GOPATH/bin
+    $HOME/.luarocks/bin
+    $path
 )
 
 #

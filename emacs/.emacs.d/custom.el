@@ -7,6 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(aw-scope (quote frame))
  '(company-backends (quote ((company-clang company-c-headers))))
  '(company-c-headers-path-user
    (quote
@@ -21,13 +22,18 @@
    (quote
     ("1e67765ecb4e53df20a96fb708a8601f6d7c8f02edb09d16c838e465ebe7f51b" default)))
  '(global-company-mode t)
+ '(linum-disabled-modes-list
+   (quote
+    (eshell-mode wl-summary-mode compilation-mode org-mode text-mode dired-mode doc-view-mode image-mode pdf-view-mode)))
  '(org-agenda-files nil)
  '(package-selected-packages
    (quote
-    (elpy pdf-tools gh-md markdown-mode company-go go-mode origami company-statistics company-irony company-quickhelp company-c-headers use-package multi-term paganini-theme hl-todo magit package-build)))
+    (edbi edbi-database-url edbi-django edbi-sqlite emacsql emacsql-sqlite3 rjsx-mode tuareg bison-mode tex-site acutex auctex cuda-mode switch-window ivy-explorer counsel swiper ccls projectile lsp-treemacs flycheck lsp-ui lsp-mode yaml-mode counsel-gtags glsl-mode elpy pdf-tools gh-md markdown-mode company-go go-mode origami company-statistics company-quickhelp company-c-headers use-package multi-term paganini-theme hl-todo magit package-build)))
  '(safe-local-variable-values
    (quote
-    ((company-clang-arguments "-I/usr/include" "-I/home/peter/programming/LoR/Inc")
+    ((tab-width 2)
+     (c-basic-offset 2)
+     (company-clang-arguments "-I/usr/include" "-I/home/peter/programming/LoR/Inc")
      (company-clang-arguments "-I/usr/include" "-I/home/peter/programming/ECS/Inc")
      (company-clang-arguments "-I/usr/include" "-I/home/peter/programming/visualizer/Inc")
      (company-clang-arguments "-I/usr/include" "-I../Inc" "-I../inc")

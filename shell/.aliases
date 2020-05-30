@@ -1,8 +1,8 @@
 alias vi="vim"
 
 alias wifi_list="nmcli device wifi list"
-alias wifi_connect="nmcli device wifi connect --ask"
-alias wifi_disconnect="nmcli device disconnet wlp3s0"
+#alias wifi_connect="nmcli device wifi connect --ask"
+alias wifi_disconnect="nmcli device disconnect wlp3s0"
 
 alias emacs="emacsclient -t --alternate-editor=''"
 alias em="emacsclient -t --alternate-editor=''"

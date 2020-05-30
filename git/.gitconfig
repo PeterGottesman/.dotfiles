@@ -1,6 +1,7 @@
 [user]
 # Email not defined on purpose, set depending on the machine...
 name = Peter Gottesman
+	email = peter@petergottesman.com
 
 [core]
 autocrlf = input
