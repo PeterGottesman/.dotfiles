@@ -3,10 +3,16 @@
 ;; Prevent TLS version issues (I think...)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
+;; Include /usr/local/bin in path
+;; Need for OSX
+(add-to-list 'exec-path "/usr/local/bin")
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+
 (package-initialize)
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+			 '("melpa" . "http://melpa.org/packages/") t)
+
 
 (when (not package-archive-contents)
   (package-refresh-contents))
@@ -15,7 +21,9 @@
 (setq-default c-default-style "linux"
               c-basic-offset 4
               tab-width 4)
-(c-set-offset 'case-label '+)           ; Set case indentation eq. to c-basic-offset
+
+;; Set case indentation eq. to c-basic-offset
+(c-set-offset 'case-label '+)
 
 ;; Disable fancy comments
 (setq ess-fancy-comments nil)
@@ -28,6 +36,10 @@
       kept-new-versions 3
       kept-old-versions 2
       version-control t)
+
+;; Put customize outputs in a separate file
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 ;; Set up use-package
 (require 'use-package)
@@ -63,6 +75,9 @@
             '(add-to-list 'TeX-command-list
      		              '("XeLaTeX" "xelatex -interaction=nonstopmode %s"
   			                TeX-run-command t t :help "Run xelatex"))))
+
+;; flycheck setup
+(use-package flycheck)
 
 ;; lsp-mode 
 (use-package lsp-mode
