@@ -13,7 +13,6 @@
 (add-to-list 'package-archives
 			 '("melpa" . "http://melpa.org/packages/") t)
 
-
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -37,6 +36,19 @@
       kept-old-versions 2
       version-control t)
 
+;; Line numbers
+(global-linum-mode t)
+
+;; Gui bad
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(setq inhibit-startup-message t)
+(setq inhibit-splash-screen t)
+
+;; Theming
+(load-theme 'wombat)
+
 ;; Put customize outputs in a separate file
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
@@ -45,11 +57,38 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Use evil mode globally
+(use-package evil
+  :config (evil-mode 1))
+
+;; Set evil-leader key mappings
+(use-package evil-leader
+  :config
+  ;; Globally use evil leader
+  (global-evil-leader-mode)
+
+  ;; Set leader to 'g'
+  (evil-leader/set-leader "g")
+
+  ;; Leader keymap
+  (evil-leader/set-key
+	;; Moving around files/buffers
+	"f" 'find-file
+	"b" 'switch-to-buffer
+
+	;; Toggle whitespace mode
+	"w" 'whitespace-mode
+
+	;; Magit bindings
+	"ms" 'magit-status
+	"ml" 'magit-log
+	;; TODO: Stage all changes, show diff, confirm append
+	;; If yes, append, if no unstage _newly staged_ changes
+	))
+
 ;; Magit
-;; Open with f1
 (use-package magit
-  :commands (magit-status magit-blame magit-checkout)
-  :bind ("<f1>" . magit-status))
+  :commands (magit-status magit-blame magit-checkout))
 
 ;; Highlight todo (in all caps) globally
 (use-package hl-todo
@@ -77,7 +116,9 @@
   			                TeX-run-command t t :help "Run xelatex"))))
 
 ;; flycheck setup
-(use-package flycheck)
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;; lsp-mode 
 (use-package lsp-mode
