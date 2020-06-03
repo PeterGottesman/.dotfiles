@@ -24,11 +24,8 @@
 ;; Set case indentation eq. to c-basic-offset
 (c-set-offset 'case-label '+)
 
-;; Disable fancy comments
-(setq ess-fancy-comments nil)
-
 ;; Backup settings
-(setq backup-directory-copying t
+(setq backup-by-copying t
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       auto-save-file-name-transforms `((".*" ,"~/.emacs.d/backups/\\1" t))
       delete-old-versions t
@@ -55,6 +52,7 @@
 
 ;; Set up use-package
 (require 'use-package)
+(require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
 ;; Use evil mode globally
@@ -67,28 +65,52 @@
   ;; Globally use evil leader
   (global-evil-leader-mode)
 
+  ;;(define-key evil-normal-state-map
+
   ;; Set leader to 'g'
   (evil-leader/set-leader "g")
 
   ;; Leader keymap
   (evil-leader/set-key
 	;; Moving around files/buffers
-	"f" 'find-file
+	"f" 'helm-find-files
 	"b" 'switch-to-buffer
+	"kk" 'kill-buffer
 
 	;; Toggle whitespace mode
 	"w" 'whitespace-mode
 
 	;; Magit bindings
+	"m" nil ;; Unmap g m
 	"ms" 'magit-status
 	"ml" 'magit-log
 	;; TODO: Stage all changes, show diff, confirm append
 	;; If yes, append, if no unstage _newly staged_ changes
+
+	;; Helm bindings
+	"x" 'helm-M-x
 	))
 
 ;; Magit
 (use-package magit
   :commands (magit-status magit-blame magit-checkout))
+
+(use-package projectile
+  :init (projectile-mode))
+
+;; Helm mode
+(use-package helm
+  :init (helm-mode)
+  (helm-autoresize-mode 1)
+  :config
+  ;; Set max/min size of helm window (%)
+  (setq helm-autoresize-min-height 0
+		helm-autoresize-max-height 20))
+
+(use-package helm-projectile
+  :requires helm projectile
+  :init (helm-projectile-on)
+  :config (setq projectile-completion-system 'helm))
 
 ;; Highlight todo (in all caps) globally
 (use-package hl-todo
@@ -117,10 +139,9 @@
 
 ;; flycheck setup
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
-;; lsp-mode 
+;; lsp-mode
 (use-package lsp-mode
   :defer t
   :hook ((vhdl-mode c-mode c++-mode latex-mode) . lsp)
@@ -134,7 +155,9 @@
     :bind (("M-." . lsp-ui-peek-find-definitions)
 	       ("M-\/". lsp-ui-peek-find-references)))
 
-  (setq lsp-prefer-flymake nil)
+  ;; Use flycheck as diagnostic
+  (setq lsp-diagnostic-package :flycheck
+		lsp-enable-snippet t)
 
   ;; TODO Set up latex lsp client
   ;; (lsp-register-client
@@ -176,4 +199,4 @@
   ;; Basic config
   (setq company-c-headers-path-user'("./inc" "." "../inc")
 	company-show-numbers t
-	company-backends '((company-yasnippet company-lsp company-c-headers))))
+	company-backends '((company-lsp company-c-headers))))
