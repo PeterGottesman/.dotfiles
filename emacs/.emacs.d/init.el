@@ -57,7 +57,9 @@
 
 ;; Use evil mode globally
 (use-package evil
-  :config (evil-mode 1))
+  :config (evil-mode 1)
+  ;; Default to emacs mode in dired mode
+  (add-to-list 'evil-emacs-state-modes 'dired-mode))
 
 ;; Set evil-leader key mappings
 (use-package evil-leader
@@ -84,11 +86,16 @@
 	"m" nil ;; Unmap g m
 	"ms" 'magit-status
 	"ml" 'magit-log
+	"mc" 'magit-clone
 	;; TODO: Stage all changes, show diff, confirm append
 	;; If yes, append, if no unstage _newly staged_ changes
 
 	;; Helm bindings
 	"x" 'helm-M-x
+
+	;; LSP bindings
+	"pd" 'lsp-ui-peek-find-definitions
+	"pr" 'lsp-ui-peek-find-references
 	))
 
 ;; Magit
