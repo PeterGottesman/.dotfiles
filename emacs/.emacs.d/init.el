@@ -37,11 +37,12 @@
 (global-linum-mode t)
 
 ;; Gui bad
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(setq inhibit-startup-message t)
-(setq inhibit-splash-screen t)
+(if (display-graphic-p)
+	(progn (menu-bar-mode -1)
+		   (tool-bar-mode -1)
+		   (scroll-bar-mode -1)
+		   (setq inhibit-startup-message t)
+		   (setq inhibit-splash-screen t)))
 
 ;; Theming
 (load-theme 'wombat)
@@ -67,14 +68,23 @@
   ;; Globally use evil leader
   (global-evil-leader-mode)
 
-  ;;(define-key evil-normal-state-map
+  ;; Use C-g to exit to normal mode. If the default is used
+  ;; (ESC/Meta), emacs waits for whatever key might come after ESC
+  ;; (meta) for a second, which causes either a slow down, or a lot of
+  ;; mistakes
+  ;; Adapted from https://www.emacswiki.org/emacs/Evil#toc16
+  (define-key evil-visual-state-map [remap keyboard-quit] 'evil-change-to-previous-state)
+  (define-key evil-insert-state-map [remap keyboard-quit] 'evil-normal-state)
+  (define-key evil-replace-state-map [remap keyboard-quit] 'evil-normal-state)
 
   ;; Set leader to 'g'
   (evil-leader/set-leader "g")
 
   ;; Leader keymap
   (evil-leader/set-key
-	;; Moving around files/buffers
+
+	;; Moving around
+	;; files/buffers
 	"f" 'helm-find-files
 	"b" 'switch-to-buffer
 	"kk" 'kill-buffer
@@ -124,8 +134,9 @@
   :init (global-hl-todo-mode))
 
 ;; pdf-tools
-(use-package pdf-tools
-  :init (pdf-tools-install))
+(if (display-graphic-p)
+	(use-package pdf-tools
+	  :init (pdf-tools-install)))
 
 ;; multi-term
 ;; f12 to open/close, use zsh
