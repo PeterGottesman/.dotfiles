@@ -13,6 +13,9 @@
 (add-to-list 'package-archives
 			 '("melpa" . "http://melpa.org/packages/") t)
 
+(add-to-list 'package-archives
+			 '("elpa" . "http://elpa.org/packages/") t)
+
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -175,7 +178,8 @@
 
   ;; Use flycheck as diagnostic
   (setq lsp-diagnostic-package :flycheck
-		lsp-enable-snippet t)
+		lsp-enable-snippet t
+		lsp-enable-on-type-formatting nil)
 
   ;; TODO Set up latex lsp client
   ;; (lsp-register-client
