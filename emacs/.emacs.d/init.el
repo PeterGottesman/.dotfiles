@@ -165,7 +165,7 @@
 ;; lsp-mode
 (use-package lsp-mode
   :defer t
-  :hook ((vhdl-mode c-mode c++-mode latex-mode) . lsp)
+  :hook ((vhdl-mode c-mode c++-mode latex-mode go-mode) . lsp)
   :commands (lsp lsp-deferred)
   :config
   ;; Use ccls for lsp backend
@@ -177,9 +177,10 @@
 	       ("M-\/". lsp-ui-peek-find-references)))
 
   ;; Use flycheck as diagnostic
-  (setq lsp-diagnostic-package :flycheck
+  (setq lsp-diagnostics-provider :flycheck
 		lsp-enable-snippet t
-		lsp-enable-on-type-formatting nil)
+		lsp-enable-on-type-formatting nil
+		lsp-enable-indentation nil)
 
   ;; TODO Set up latex lsp client
   ;; (lsp-register-client
