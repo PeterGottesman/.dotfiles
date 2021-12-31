@@ -3,10 +3,11 @@
 ;; Prevent TLS version issues (I think...)
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-;; Include /usr/local/bin in path
-;; Need for OSX
-(add-to-list 'exec-path "/usr/local/bin")
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(setenv "GOPATH" (concat (getenv "HOME") "/go"))
+
+(setenv "PATH" (concat (getenv "GOPATH") "/bin:" (getenv "PATH") ":/usr/local/bin"))
+
+(add-to-list 'exec-path (getenv "PATH"))
 
 (package-initialize)
 (require 'package)
@@ -30,7 +31,7 @@
 ;; Backup settings
 (setq backup-by-copying t
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      auto-save-file-name-transforms `((".*" ,"~/.emacs.d/backups/\\1" t))
+      ;; auto-save-file-name-transforms '((".*" ,"~/.emacs.d/backups/\\1" t))
       delete-old-versions t
       kept-new-versions 3
       kept-old-versions 2
@@ -63,7 +64,12 @@
 (use-package evil
   :config (evil-mode 1)
   ;; Default to emacs mode in dired mode
-  (add-to-list 'evil-emacs-state-modes 'dired-mode))
+  (add-to-list 'evil-emacs-state-modes 'dired-mode)
+
+  ;; undo-tree no longer required in evil mode, add it manually
+  (use-package undo-tree
+	:config (global-undo-tree-mode t))
+  (evil-set-undo-system 'undo-tree))
 
 ;; Set evil-leader key mappings
 (use-package evil-leader
@@ -196,6 +202,9 @@
                     :priority -1
                     :server-id 'lsp-vhdl-mode)))
 
+;; rmsbolt, like godbolt
+(use-package rmsbolt)
+
 ;; Snippets
 ;; Stored in ~/.emacs.d/snippets/*-mode/*.yasnippet
 (use-package yasnippet
@@ -207,7 +216,7 @@
   :bind ("C-\\" . company-complete)
   :init (add-hook 'after-init-hook 'global-company-mode)
   :config
-  
+
   ;; Allow company to autocomplete header names
   ;; Does lsp-mode provide this functionality?
   (use-package company-c-headers)
@@ -223,3 +232,27 @@
   (setq company-c-headers-path-user'("./inc" "." "../inc")
 	company-show-numbers t
 	company-backends '((company-lsp company-c-headers))))
+
+;; Org-mode
+(use-package org
+  :init  (setq initial-buffer-choice (lambda ()
+									   (org-agenda nil "n")
+									   (delete-other-windows)
+									   (get-buffer "*Org Agenda*")))
+  :config (setq org-agenda-files '("~/agenda.org"))
+)
+
+;; Open org-agenda as starting screen
+;; (org-agenda nil "n")
+;; (setq initial-buffer-choice 'org-agenda-list)
+;; (setq initial-buffer-choice (lambda ()
+;; 							  (if (and (boundp 'server-process)
+;; 									   (server-running-p))
+;; 								  ((lambda ()
+;; 									(org-agenda nil "n")
+;; 									(delete-other-windows)
+;; 									(get-buffer "*Org Agenda*")))
+;; 									(get-buffer "*scratch*"))))
+
+(provide 'init.el)
+;;; init.el ends here
