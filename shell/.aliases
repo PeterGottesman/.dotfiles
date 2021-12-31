@@ -1,4 +1,5 @@
-alias vi="vim"
+alias vi="nvim"
+alias vim="nvim"
 
 alias wifi_list="nmcli device wifi list"
 #alias wifi_connect="nmcli device wifi connect --ask"
@@ -6,9 +7,7 @@ alias wifi_disconnect="nmcli device disconnect wlp3s0"
 
 alias emacs="emacsclient -t --alternate-editor=''"
 alias em="emacsclient -t --alternate-editor=''"
-
-alias sq="squeue -o \"%.7i %.15P %.8u %.8T %.9M %.6D %.15R    %j\""
-alias sqc='echo "$(squeue | wc -l)-1" | bc'
+alias pass="EDITOR=nvim pass"
 
 function pyman {
     if [ "$#" -eq "1" ]; then

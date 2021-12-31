@@ -14,7 +14,7 @@ URxvt.italicfont:	xft:Roboto Mono:style=Bold Italic,pixelsize=14:antialias=true
 URxvt.bolditalicfont:	xft:Roboto Mono:style=Bold Italic,pixelsize=14:antialias=true
 URxvt.letterSpace:	-1
 
-URxvt*transparent: 	true
+URxvt*transparent:  false
 URxvt*shading:		0
 URxvt*scrollBar:	false
 URxvt*scrollBar_right:	false
