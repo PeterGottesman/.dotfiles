@@ -239,6 +239,17 @@
 									   (delete-other-windows)
 									   (get-buffer "*Org Agenda*")))
   :config (setq org-agenda-files '("~/agenda.org"))
+
+  (use-package org-roam
+	:config
+	(setq org-roam-directory "~/work/notes")
+
+	(evil-leader/set-key
+	  "rf" 'org-roam-node-find
+	  "rn" 'org-roam-node-insert
+	  "rg" 'org-roam-graph
+	  )
+	)
 )
 
 ;; Open org-agenda as starting screen
