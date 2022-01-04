@@ -40,13 +40,12 @@
 ;; Line numbers
 (global-linum-mode t)
 
-;; Gui bad
-(if (display-graphic-p)
-	(progn (menu-bar-mode -1)
-		   (tool-bar-mode -1)
-		   (scroll-bar-mode -1)
-		   (setq inhibit-startup-message t)
-		   (setq inhibit-splash-screen t)))
+;; Disable menu/toolbar/scroll bar
+(progn (menu-bar-mode -1)
+	   (tool-bar-mode -1)
+	   (scroll-bar-mode -1)
+	   (setq inhibit-startup-message t)
+	   (setq inhibit-splash-screen t))
 
 ;; Theming
 (load-theme 'wombat)
