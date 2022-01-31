@@ -114,6 +114,11 @@
 	;; LSP bindings
 	"pd" 'lsp-ui-peek-find-definitions
 	"pr" 'lsp-ui-peek-find-references
+
+	;; describe bindings
+	"hk" 'describe-key
+	"hv" 'describe-variable
+	"hf" 'describe-function
 	))
 
 ;; Magit
