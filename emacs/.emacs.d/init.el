@@ -235,7 +235,7 @@
   ;; Basic config
   (setq company-c-headers-path-user'("./inc" "." "../inc")
 	company-show-numbers t
-	company-backends '((company-lsp company-c-headers))))
+	company-backends '((company-lsp company-c-headers company-elisp))))
 
 ;; Org-mode
 (use-package org
@@ -247,11 +247,39 @@
 
   (use-package org-roam
 	:config
-	(setq org-roam-directory "~/work/notes")
+	(setq org-roam-directory "~/work/notes"
+				org-roam-db-autosync-mode t)
+
+	;; TODO This is commented because I want to wait to see how my
+	;; roam workflow looks like for projects. There is no need to be
+	;; opening every org-roam note every time I start emacs, so this
+	;; should not be resurrected as-is.
+
+	;; (setq org-agenda-files (append org-agenda-files (org-roam-list-files)))
+
+	(defun org-roam-insert-immediate (arg &rest args)
+	  (interactive "P")
+	  (let ((args (cons arg args))
+			(org-roam-capture-templates (list (append (car org-roam-capture-templates)
+													  '(:immediate-finish t)))))
+		(apply #'org-roam-node-insert args)))
+
+	;; prepends a space before link, for use in evil mode
+	(defun org-roam-insert-immediate-evil (arg &rest args)
+	  (interactive "P")
+	  (evil-append 1)
+	  (apply #'org-roam-insert-immediate (cons arg args))
+	  (evil-normal-state))
 
 	(evil-leader/set-key
 	  "rf" 'org-roam-node-find
-	  "rn" 'org-roam-node-insert
+
+	  ;; TODO: Replace org-roam-node-insert with a wrapper that
+	  ;; doesn't switch to the new node. See System Crafter's "5 org
+	  ;; roam hacks..." video. Also, insert a space before the
+	  ;; inserted link.
+	  "rl" 'org-roam-node-insert-immediate-evil
+	  "rn" 'org-roam-capture
 	  "rg" 'org-roam-graph
 	  )
 	)
