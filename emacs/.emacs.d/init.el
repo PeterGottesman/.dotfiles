@@ -352,6 +352,8 @@
 	)
 )
 
+(use-package cuda-mode)
+
 ;; Open org-agenda as starting screen
 ;; (org-agenda nil "n")
 ;; (setq initial-buffer-choice 'org-agenda-list)
