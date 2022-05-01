@@ -23,7 +23,8 @@
 ;; C indentation
 (setq-default c-default-style "linux"
               c-basic-offset 4
-              tab-width 4)
+              tab-width 4
+			  indent-tabs-mode nil)
 
 ;; Set case indentation eq. to c-basic-offset
 (c-set-offset 'case-label '+)
@@ -239,7 +240,8 @@
   (setq lsp-diagnostics-provider :flycheck
 		lsp-enable-snippet t
 		lsp-enable-on-type-formatting nil
-		lsp-enable-indentation nil)
+		lsp-enable-indentation nil
+		lsp-lens-enable nil)
 
   ;; TODO Set up latex lsp client
   ;; (lsp-register-client
@@ -353,6 +355,17 @@
 ;; 									(delete-other-windows)
 ;; 									(get-buffer "*Org Agenda*")))
 ;; 									(get-buffer "*scratch*"))))
+
+;; Font settings
+(set-face-attribute 'default t
+					:height 100
+					:family "roboto mono")
+
+(use-package google-c-style
+  :load-path "lisp/"
+  :commands (google-set-c-style google-c-style)
+  :hook (c-mode-common . google-set-c-style)
+  )
 
 (provide 'init.el)
 ;;; init.el ends here
