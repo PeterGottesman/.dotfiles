@@ -215,11 +215,20 @@
 ;; lsp-mode
 (use-package lsp-mode
   :defer t
-  :hook ((vhdl-mode c-mode c++-mode latex-mode go-mode) . lsp)
+  :hook ((python-mode vhdl-mode c-mode c++-mode latex-mode go-mode) . lsp)
   :commands (lsp lsp-deferred)
   :config
   ;; Use ccls for lsp backend
   (use-package ccls)
+
+  ;; Use Jedi for python lsp backend. Use this instead of
+  ;; python-language-server because the latter currently is slow and
+  ;; hangs when a cancellation is sent
+  (use-package lsp-jedi
+	:config
+	(with-eval-after-load "lsp-mode"
+	  (add-to-list 'lsp-disabled-clients 'pyls))
+	)
 
   ;; Use lsp-ui to find defs/refs
   (use-package lsp-ui
@@ -244,7 +253,15 @@
    (make-lsp-client :new-connection (lsp-stdio-connection '("ghdl-ls"))
                     :major-modes '(vhdl-mode)
                     :priority -1
-                    :server-id 'lsp-vhdl-mode)))
+                    :server-id 'lsp-vhdl-mode))
+  )
+
+(use-package conda
+  :config
+  (conda-env-autoactivate-mode t)
+  (setq conda-env-home-directory (expand-file-name "~/mambaforge"))
+  :custom (conda-anaconda-home (expand-file-name "~/mambaforge"))
+  )
 
 ;; rmsbolt, like godbolt
 (use-package rmsbolt)
