@@ -88,6 +88,38 @@
   ;; Set leader to 'g'
   (evil-leader/set-leader "g")
 
+  (defun my/smerge-first-conflict ()
+    (interactive)
+    (goto-char (point-min))
+    (smerge-start-session))
+
+  (defun my/smerge-next-conflict-in-proj ()
+    (interactive)
+    (ignore-errors
+      (smerge-next)
+
+      (recenter)
+      )
+    (unless (looking-at smerge-begin-re)
+      (if (buffer-modified-p)
+          (progn
+            (message "Done with buffer!")
+            (goto-char (point-max)))
+
+        (let* ((files
+                (seq-intersection (magit-unmerged-files) (magit-unstaged-files)))
+               (first-file
+                (concat (magit-toplevel) (car files))))
+          (if first-file
+              (progn
+                (magit-diff-visit-worktree-file first-file)
+                (my/smerge-first-conflict))
+          (message "Nothing left to merge!"))))))
+
+  (defun my/magit-smerge-first ()
+    (call-interactively 'magit-diff-visit-file-other-window)
+    (my/magit-smerge-first))
+
   ;; Leader keymap
   (evil-leader/set-key
 
@@ -107,6 +139,14 @@
 	"mc" 'magit-clone
 	;; TODO: Stage all changes, show diff, confirm append
 	;; If yes, append, if no unstage _newly staged_ changes
+
+    "mf" 'my/smerge-first-conflict
+    "mn" 'my/smerge-next-conflict-in-proj
+    "mp" 'smerge-prev
+    "mm" 'smerge-keep-mine
+    "mo" 'smerge-keep-other
+    "ma" 'smerge-keep-all
+    "mr" 'smerge-refine
 
 	;; Helm bindings
 	"x" 'helm-M-x
