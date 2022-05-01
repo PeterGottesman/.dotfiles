@@ -307,6 +307,7 @@
   (use-package org-roam
 	:config
 	(setq org-roam-directory "~/work/notes"
+		  org-roam-dailies-directory "dailies/"
 				org-roam-db-autosync-mode t)
 
 	;; TODO This is commented because I want to wait to see how my
@@ -315,6 +316,12 @@
 	;; should not be resurrected as-is.
 
 	;; (setq org-agenda-files (append org-agenda-files (org-roam-list-files)))
+
+	(setq org-roam-dailies-capture-templates
+		  '(("d" "default" entry
+			 "* %?"
+			 :target (file+head "%<%Y-%m-%d>.org"
+								"#+title: %<%Y-%m-%d>\n"))))
 
 	(defun org-roam-insert-immediate (arg &rest args)
 	  (interactive "P")
@@ -337,8 +344,9 @@
 	  ;; doesn't switch to the new node. See System Crafter's "5 org
 	  ;; roam hacks..." video. Also, insert a space before the
 	  ;; inserted link.
-	  "rl" 'org-roam-node-insert-immediate-evil
+	  "rl" 'org-roam-insert-immediate-evil
 	  "rn" 'org-roam-capture
+	  "rd" 'org-roam-dailies-capture-today
 	  "rg" 'org-roam-graph
 	  )
 	)
