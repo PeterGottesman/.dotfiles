@@ -1,5 +1,10 @@
-eshell/
-auto-save-list/
-elpa/
-backups/
-company-statistics-cache.el
+/emacs/.emacs.d/eshell/
+/emacs/.emacs.d/auto-save-list/
+/emacs/.emacs.d/backups/
+/emacs/.emacs.d/company-statistics-cache.el
+
+# Keep use-package and bind-key around, everything else can be
+# downloaded from (m)elpa
+/emacs/.emacs.d/elpa/*
+!/emacs/.emacs.d/elpa/use-package*
+!/emacs/.emacs.d/elpa/bind-key*

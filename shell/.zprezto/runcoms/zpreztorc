@@ -37,7 +37,8 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt' \
-  'tmux'
+  'tmux' \
+  'conda-zsh-completion'
 
 #
 # Autosuggestions
@@ -214,7 +215,7 @@ zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
 # Set the default session name:
-zstyle ':prezto:module:tmux:session' name $(hostname)
+zstyle ':prezto:module:tmux:session' name "default"
 
 #
 # Utility
