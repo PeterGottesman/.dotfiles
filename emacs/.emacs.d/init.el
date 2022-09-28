@@ -14,9 +14,6 @@
 (add-to-list 'package-archives
 			 '("melpa" . "http://melpa.org/packages/") t)
 
-(add-to-list 'package-archives
-			 '("elpa" . "http://elpa.org/packages/") t)
-
 (when (not package-archive-contents)
   (package-refresh-contents))
 
@@ -290,13 +287,9 @@
   (use-package company-statistics
     :init (add-hook 'after-init-hook 'company-statistics-mode))
 
-  ;; Use lsp company backend
-  (use-package company-lsp)
-
   ;; Basic config
   (setq company-c-headers-path-user'("./inc" "." "../inc")
-	company-show-numbers t
-	company-backends '((company-lsp company-c-headers company-elisp))))
+	company-show-numbers t))
 
 ;; Org-mode
 (use-package org
