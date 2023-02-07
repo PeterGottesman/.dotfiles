@@ -24,4 +24,5 @@ if [[ -f "/usr/share/fzf/shell/key-bindings.zsh" ]]; then
 fi
 
 autoload -Uz bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
 
