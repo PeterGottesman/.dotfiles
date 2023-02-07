@@ -35,10 +35,10 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'spectrum' \
   'utility' \
-  'completion' \
   'prompt' \
   'tmux' \
-  'conda-zsh-completion'
+  'conda-zsh-completion' \
+  'completion'
 
 #
 # Autosuggestions
