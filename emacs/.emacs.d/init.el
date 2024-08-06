@@ -361,6 +361,10 @@
 					:height 100
 					:family "roboto mono")
 
+;;(set-face-attribute 'default nil
+;;					:height 150
+;;					:family "roboto mono")
+;;
 (use-package google-c-style
   :load-path "lisp/"
   :commands (google-set-c-style google-c-style)
