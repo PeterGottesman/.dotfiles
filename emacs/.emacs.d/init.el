@@ -216,11 +216,6 @@
   :hook ((python-mode vhdl-mode c-mode c++-mode latex-mode go-mode) . lsp)
   :commands (lsp lsp-deferred)
   :config
-  ;; Use ccls for lsp backend
-  (use-package ccls
-    :custom (ccls-initialization-options (list :index (list :threads 4)))
-    )
-
   ;; Use Jedi for python lsp backend. Use this instead of
   ;; python-language-server because the latter currently is slow and
   ;; hangs when a cancellation is sent
