@@ -35,9 +35,6 @@
       kept-old-versions 2
       version-control t)
 
-;; Line numbers
-(global-linum-mode t)
-
 ;; Disable menu/toolbar/scroll bar
 (progn (menu-bar-mode -1)
 	   (tool-bar-mode -1)
@@ -57,6 +54,11 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
+;; Use NLinum instead of linum-mode, required for emacs 29+
+(use-package nlinum
+  :config
+  (global-nlinum-mode))
+
 ;; Use evil mode globally
 (use-package evil
   :config (evil-mode 1)
@@ -65,7 +67,8 @@
 
   ;; undo-tree no longer required in evil mode, add it manually
   (use-package undo-tree
-	:config (global-undo-tree-mode t))
+	:config (global-undo-tree-mode t)
+    (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo"))))
   (evil-set-undo-system 'undo-tree))
 
 ;; Set evil-leader key mappings
